@@ -1,0 +1,24 @@
+[{
+	"text" : "搜索",
+	"children" : [{
+		"text" : "百度",
+		"attributes" : {
+			"url" : "http://www.baidu.com"
+		}},{
+		"text" : "Bing",
+		"attributes" : {
+			"url" : "http://www.bing.com"
+		}}]
+},{
+	"text" : "门户",
+	"children" : [{
+		"text" : "网易",
+		"attributes" : {
+			"url" : "http://www.163.com"
+		}},{
+		"text" : "腾讯",
+		"attributes" : {
+			"url" : "http://www.qq.com"
+		}}]
+}
+]
