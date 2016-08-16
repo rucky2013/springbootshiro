@@ -25,7 +25,7 @@ public class AppInit extends SpringBootServletInitializer{
 		return builder.sources(this.getClass());
 	}
 
-	public static void main(String[] args) {
+/*	public static void main(String[] args) {
 		SpringApplication.run(AppInit.class, args);
-	}
+	}*/
 }

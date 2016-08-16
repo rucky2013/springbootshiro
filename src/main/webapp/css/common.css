@@ -1,0 +1,40 @@
+a {
+	text-decoration: none;
+}
+
+a.visited {
+	text-decoration: none;
+	color: #000000;
+}
+
+.nav_item {
+	line-height: 20px;
+	text-align: center;
+	display: block;
+	text-decoration: none;
+	border-bottom: 1px solid #0081c2;
+	width: 99%;
+	height: 22px;
+	cursor: pointer;
+}
+
+.nav_item:hover {
+	cursor: pointer;
+	line-height: 20px;
+	height: 20px;
+	background-color: #0081c2;
+	color: #ffffff;
+	text-align: center;
+	text-decoration: none;
+	border: 1px solid #0081c2;
+}
+
+.nav_item.selected {
+	line-height: 20px;
+	height: 20px;
+	background-color: #0081c2;
+	color: #ffffff;
+	text-align: center;
+	text-decoration: none;
+	border: 1px solid #0081c2;
+}

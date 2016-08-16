@@ -85,6 +85,7 @@ public class MyShiroRealm extends AuthorizingRealm {
 
 		//设置权限信息.
 		//     authorizationInfo.setStringPermissions(getStringPermissions(userInfo.getRoleList()));
+		System.out.println("权限信息："+authorizationInfo.toString());
 		return authorizationInfo;
 	}
 
