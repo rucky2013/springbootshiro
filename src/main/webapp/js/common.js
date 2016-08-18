@@ -45,7 +45,7 @@ function fullPage(url, title) {
 		maxmin : false,
 		area : [ '80%', '80%' ],
 		content : url,
-		scrollbar : true
+		scrollbar : true,
 	});
 	parent.layer.restore(returnValue);
 	return returnValue;
@@ -61,15 +61,17 @@ function autoLayer(url, title) {
 	});
 	layer.restore(index);
 }
+
 function closeLayer(){
-	layer.closeAll('page');
+	var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+	 parent.layer.close(index); //执行关闭自身操作
 }
 
 function nLayer(url, title) {
 	layer.open({
 		title : title,
 		type : 2,
-		content : [ '/userInfo/userAdd', 'no' ]
+		content : [ url, 'no' ]
 	// 这里content是一个URL，如果你不想让iframe出现滚动条，你还可以content:
 	// ['http://sentsin.com', 'no']
 	});
@@ -80,9 +82,11 @@ function save(formId, saveUrl) {
 	$.post(saveUrl, roles, function(data) {
 		if (data != null) {
 			if (data.success) {
-				
+				parent.layer.msg(data.msg);
+				closeLayer();
+			}else{
+				parent.layer.msg(data.msg);
 			}
-			layer.msg(data.msg);
 		}
 	}, "json");
 }

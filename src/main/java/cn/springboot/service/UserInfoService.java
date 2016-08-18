@@ -8,9 +8,10 @@
  */
 package cn.springboot.service;
 
+import java.util.Map;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.domain.Specification;
 
 import cn.springboot.bean.UserInfo;
 
@@ -26,5 +27,7 @@ public interface UserInfoService {
 	public UserInfo findByUsername(String username);
 	
 	public void addUser(UserInfo userInfo);
+	
+	public Map<String, Object> getUserByPageable();
 	
 }

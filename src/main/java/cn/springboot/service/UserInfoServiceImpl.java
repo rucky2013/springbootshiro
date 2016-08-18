@@ -8,17 +8,14 @@
  */
 package cn.springboot.service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.domain.Sort.Direction;
-import org.springframework.data.jpa.domain.Specification;
-import org.springframework.scheduling.config.Task;
 import org.springframework.stereotype.Service;
 
 import cn.springboot.bean.UserInfo;
@@ -42,11 +39,25 @@ public class UserInfoServiceImpl implements UserInfoService {
 		return userInfoDao.findByUsername(username);
 	}
 
-
 	@Override
 	public void addUser(UserInfo userInfo) {
-		userInfoDao.save(userInfo);		
+		userInfoDao.save(userInfo);
 	}
 
+	public Map<String, Object> getUserByPageable() {
+		//userInfoDao.findAll(pageable);
+		Map<String, Object> map = new HashMap<String, Object>();
+		List<UserInfo> list = new ArrayList<UserInfo>();
+		UserInfo user=new UserInfo();
+		user.setName("admin");
+		user.setPassword("456");
+		list.add(user);
+		user.setName("abc");
+		user.setPassword("123");
+		list.add(user);
+		map.put("total", 100);
+		map.put("rows", list);
+		return map;
+	}
 
 }

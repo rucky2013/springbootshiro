@@ -22,5 +22,5 @@ public interface UserInfoDao extends PagingAndSortingRepository<UserInfo, String
 
 	//通过username查找用户信息
 	public UserInfo findByUsername(String username);
-	
+
 }

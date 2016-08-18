@@ -8,13 +8,19 @@
  */
 package cn.springboot.controller;
 
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -46,6 +52,25 @@ public class UserInfoController {
 	@RequiresPermissions("userInfo:view")
 	public String userInfo() {
 		return "userinfo/list";
+	}
+	/**
+	 * 
+	 * @Title: userInfo 
+	 * @Description: TODO
+	 * @return
+	 * @throws
+	 */
+	@RequestMapping("/listDetail")
+	@RequiresPermissions("userInfo:listdetail")
+	@ResponseBody
+	public String listDetail(HttpServletRequest req,Integer pageList, Integer pageSize){
+		//Pageable pageable=new PageRequest(pageList,pageSize);
+		System.out.println("页数1"+req.getParameter("pageList"));
+		System.out.println("页数2"+req.getParameter("pageSize"));
+		System.out.println("页数3"+req.getAttribute("pageList"));
+		System.out.println("页数4"+req.getAttribute("pageSize"));
+		System.out.println("用户信息："+StringUtil.toJSon(userInfoService.getUserByPageable()));
+		return StringUtil.toJSon(userInfoService.getUserByPageable());
 	}
 
 	@RequestMapping("/userAddPage")
