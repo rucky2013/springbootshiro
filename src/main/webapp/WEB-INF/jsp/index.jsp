@@ -19,7 +19,7 @@
 					<a><span onclick="addTab('用户管理','/userInfo/userList')">用户管理</span> </a>
 				</div>
 				<div class="nav_item">
-					<a href=""><span>权限管理</span> </a>
+					<a><span onclick="showDiag">权限管理</span> </a>
 				</div>
 			</div>
 			<div title="Title3" style="padding: 10px">content3</div>

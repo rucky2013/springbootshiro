@@ -7,4 +7,9 @@
 <link rel="stylesheet" type="text/css" href="../jquery-easyui-1.5/demo/demo.css">
 <script type="text/javascript" src="../jquery-easyui-1.5/jquery.min.js"></script>
 <script type="text/javascript" src="../jquery-easyui-1.5/jquery.easyui.min.js"></script>
+
 <script type="text/javascript" src="../js/common.js"></script>
+
+<!-- layer -->
+<script type="text/javascript" src="../layer/layer.js"></script>
+<link rel="stylesheet" type="text/css" href="../layer/skin/layer.css">

@@ -39,22 +39,8 @@
 </table>
 <div id="tb" style="height: 28px; display: none;">
 	<div style="margin: 2px;">
-		<a class="easyui-linkbutton" onclick="addTab('usr/add.jspx')"
-			icons="easyui-icon-add" text="添加" ></a>
-		<a class="easyui-linkbutton"
-			onclick="deletebyIds('#tt','usr/delete.jspx')"
-			iconCls="easyui-icon-cut" text="删除" ></a>
-		<a class="easyui-linkbutton" onclick="edit('#tt','usr/edit')"
-			iconCls="easyui-icon-edit" text="编辑" ></a>
-		<span style="float: right;"><input class="easyui-searchbox"
-			data-options="prompt:'请输入用户名',searcher:doSearch"
-			style="width: 300px; height: 24px;" /></span> <span style="clear: both;"></span>
-		<script>
-			function doSearch(value) {
-				$("#tt").datagrid("load", {
-					queryString : value
-				});
-			}
-		</script>
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="openWin('/userInfo/userAdd','添加用户','addUser')">添加</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="openDiag()">对话框</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="autoLayer('/userInfo/userAddPage','对话框')">对话框2</a>
 	</div>
 </div>

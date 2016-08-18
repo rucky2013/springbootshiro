@@ -8,6 +8,10 @@
  */
 package cn.springboot.service;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
+
 import cn.springboot.bean.UserInfo;
 
 /** 
@@ -20,4 +24,7 @@ public interface UserInfoService {
 
 	//通过username查找用户信息
 	public UserInfo findByUsername(String username);
+	
+	public void addUser(UserInfo userInfo);
+	
 }
