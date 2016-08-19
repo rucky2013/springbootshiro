@@ -7750,3 +7750,7 @@ java.lang.NullPointerException: null
 2016-08-19 11:54:19.544  INFO 7024 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Registering beans for JMX exposure on startup
 2016-08-19 11:54:19.688  INFO 7024 --- [main] s.b.c.e.t.TomcatEmbeddedServletContainer : Tomcat started on port(s): 8089 (http)
 2016-08-19 11:54:19.715  INFO 7024 --- [main] cn.springboot.App                        : Started App in 13.116 seconds (JVM running for 13.915)
+2016-08-19 11:54:40.837  INFO 7024 --- [http-nio-8089-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring FrameworkServlet 'dispatcherServlet'
+2016-08-19 11:54:40.838  INFO 7024 --- [http-nio-8089-exec-1] o.s.web.servlet.DispatcherServlet        : FrameworkServlet 'dispatcherServlet': initialization started
+2016-08-19 11:54:40.885  INFO 7024 --- [http-nio-8089-exec-1] o.s.web.servlet.DispatcherServlet        : FrameworkServlet 'dispatcherServlet': initialization completed in 47 ms
+2016-08-19 11:54:44.379  INFO 7024 --- [http-nio-8089-exec-3] o.h.h.i.QueryTranslatorFactoryInitiator  : HHH000397: Using ASTQueryTranslatorFactory

@@ -16,19 +16,21 @@ import org.springframework.data.domain.Sort;
 
 import cn.springboot.bean.UserInfo;
 
-/** 
- * @ClassName: UserInfoService 
+/**
+ * @ClassName: UserInfoService
  * @Description: TODO
  * @author SUN
- * @date 2016年8月11日 上午8:48:28  
+ * @date 2016年8月11日 上午8:48:28
  */
 public interface UserInfoService {
 
-	//通过username查找用户信息
+	// 通过username查找用户信息
 	public UserInfo findByUsername(String username);
-	
+
 	public void addUser(UserInfo userInfo);
-	
-	public Map<String, Object> getUserByPageable(Pageable pageable);
-	
+
+	public Map<String, Object> getUserByPageable(String queryString,Integer page,Integer rows);
+
+	public void deleteById(String id);
+
 }

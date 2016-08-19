@@ -8,10 +8,8 @@
  */
 package cn.springboot.controller;
 
-import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -27,8 +25,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.data.domain.Sort.Direction;
-import org.springframework.data.domain.Sort.Order;
 
 import cn.springboot.bean.UserInfo;
 import cn.springboot.service.UserInfoService;
@@ -58,28 +54,19 @@ public class UserInfoController {
 	public String userInfo() {
 		return "userinfo/list";
 	}
+
 	/**
 	 * 
-	 * @Title: userInfo 
-	 * @Description: TODO
-	 * @return
-	 * @throws
+	 * @Title: userInfo @Description: TODO @return @throws
 	 */
 	@RequestMapping("/listDetail")
 	@RequiresPermissions("userInfo:listdetail")
 	@ResponseBody
-	public String listDetail(HttpServletRequest req,Integer page, Integer rows){
-		List<Order> list=new ArrayList<Order>();
-		Order usernameOrder=new Order(Direction.DESC, "username");
-		Order uidOrder=new Order(Direction.ASC, "uid");
-		list.add(usernameOrder);
-		list.add(uidOrder);
-		Sort sort = new Sort(list);
-		
-		Pageable pageable=new PageRequest(page-1,rows,sort);
+	public String listDetail(HttpServletRequest req, Integer page, Integer rows) {
+
 		String queryString = req.getParameter("queryString");
-		System.out.println("查询条件："+queryString);
-		return StringUtil.toJSon(userInfoService.getUserByPageable(pageable));
+		System.out.println("查询条件：" + queryString);
+		return StringUtil.toJSon(userInfoService.getUserByPageable(queryString, page, rows));
 	}
 
 	@RequestMapping("/userAddPage")
