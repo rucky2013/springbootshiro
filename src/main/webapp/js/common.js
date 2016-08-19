@@ -62,9 +62,9 @@ function autoLayer(url, title) {
 	layer.restore(index);
 }
 
-function closeLayer(){
-	var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
-	 parent.layer.close(index); //执行关闭自身操作
+function closeLayer() {
+	var index = parent.layer.getFrameIndex(window.name); // 先得到当前iframe层的索引
+	parent.layer.close(index); // 执行关闭自身操作
 }
 
 function nLayer(url, title) {
@@ -83,8 +83,9 @@ function save(formId, saveUrl) {
 		if (data != null) {
 			if (data.success) {
 				parent.layer.msg(data.msg);
+				 parent.$("#tt").datagrid('reload');
 				closeLayer();
-			}else{
+			} else {
 				parent.layer.msg(data.msg);
 			}
 		}

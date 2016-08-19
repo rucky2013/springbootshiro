@@ -15,7 +15,9 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import cn.springboot.bean.UserInfo;
@@ -44,18 +46,20 @@ public class UserInfoServiceImpl implements UserInfoService {
 		userInfoDao.save(userInfo);
 	}
 
-	public Map<String, Object> getUserByPageable() {
-		//userInfoDao.findAll(pageable);
+	public Map<String, Object> getUserByPageable(Pageable pageable) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		List<UserInfo> list = new ArrayList<UserInfo>();
-		UserInfo user=new UserInfo();
-		user.setName("admin");
-		user.setPassword("456");
-		list.add(user);
-		user.setName("abc");
-		user.setPassword("123");
-		list.add(user);
-		map.put("total", 100);
+		Page<UserInfo> users=userInfoDao.findAll(pageable);
+		List<UserInfo> lists=users.getContent();
+		if (lists != null) {
+			for (Object obj : lists) {
+				UserInfo us = new UserInfo();
+				UserInfo u = (UserInfo) obj;
+				us.setUsername(u.getUsername());
+				list.add(us);
+			}
+		}
+		map.put("total", users.getTotalElements());
 		map.put("rows", list);
 		return map;
 	}

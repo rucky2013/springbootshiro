@@ -12,6 +12,7 @@ import java.util.Map;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 import cn.springboot.bean.UserInfo;
 
@@ -28,6 +29,6 @@ public interface UserInfoService {
 	
 	public void addUser(UserInfo userInfo);
 	
-	public Map<String, Object> getUserByPageable();
+	public Map<String, Object> getUserByPageable(Pageable pageable);
 	
 }

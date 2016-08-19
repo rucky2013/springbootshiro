@@ -8,8 +8,10 @@
  */
 package cn.springboot.controller;
 
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -21,9 +23,12 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.domain.Sort.Order;
 
 import cn.springboot.bean.UserInfo;
 import cn.springboot.service.UserInfoService;
@@ -63,14 +68,18 @@ public class UserInfoController {
 	@RequestMapping("/listDetail")
 	@RequiresPermissions("userInfo:listdetail")
 	@ResponseBody
-	public String listDetail(HttpServletRequest req,Integer pageList, Integer pageSize){
-		//Pageable pageable=new PageRequest(pageList,pageSize);
-		System.out.println("页数1"+req.getParameter("pageList"));
-		System.out.println("页数2"+req.getParameter("pageSize"));
-		System.out.println("页数3"+req.getAttribute("pageList"));
-		System.out.println("页数4"+req.getAttribute("pageSize"));
-		System.out.println("用户信息："+StringUtil.toJSon(userInfoService.getUserByPageable()));
-		return StringUtil.toJSon(userInfoService.getUserByPageable());
+	public String listDetail(HttpServletRequest req,Integer page, Integer rows){
+		List<Order> list=new ArrayList<Order>();
+		Order usernameOrder=new Order(Direction.DESC, "username");
+		Order uidOrder=new Order(Direction.ASC, "uid");
+		list.add(usernameOrder);
+		list.add(uidOrder);
+		Sort sort = new Sort(list);
+		
+		Pageable pageable=new PageRequest(page-1,rows,sort);
+		String queryString = req.getParameter("queryString");
+		System.out.println("查询条件："+queryString);
+		return StringUtil.toJSon(userInfoService.getUserByPageable(pageable));
 	}
 
 	@RequestMapping("/userAddPage")
