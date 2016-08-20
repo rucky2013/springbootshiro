@@ -21,6 +21,7 @@ public class StringUtil {
 
 	/**
 	 * 转换Json数据
+	 * 
 	 * @param obj
 	 * @return
 	 */
@@ -35,5 +36,32 @@ public class StringUtil {
 		}
 		return null;
 	}
+
+	/**
+	 * 判断对象是否为空
+	 * 
+	 * @param str
+	 * @return
+	 */
+	public static boolean isEmpty(Object str) {
+		if (!(null != str && !"".equals(str))) {
+			return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * 判断字符串是否为空
+	 * 
+	 * @param str
+	 * @return
+	 */
+	public static boolean isEmpty(String str) {
+		if (!(null != str && str.trim().length() > 0)) {
+			return true;
+		}
+		return false;
+	}
+
 
 }

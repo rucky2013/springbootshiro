@@ -8,6 +8,7 @@
  */
 package cn.springboot.controller;
 
+import java.io.IOException;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
@@ -93,9 +94,31 @@ public class UserInfoController {
 		return StringUtil.toJSon(map);
 	}
 
-	@RequestMapping("userDel")
-	@RequiresPermissions("userInfo:del")
-	public String userInfoDel() {
+	@RequestMapping("userDelOne")
+	@RequiresPermissions("userInfo:delOne")
+	@ResponseBody
+	public String delete(HttpServletRequest req, String ids) throws IOException {
+		Map<String, Object> map = new HashMap<String, Object>();
+		if (!StringUtil.isEmpty(ids)) {
+			try {
+				userInfoService.deleteUser(Integer.parseInt(ids));
+				map.put("success", true);
+				map.put("msg", "信息删除成功");
+			} catch (Exception e) {
+				map.put("success", false);
+				map.put("msg", "提示:" + e.getMessage());
+				e.printStackTrace();
+			}
+		} else {
+			map.put("success", false);
+			map.put("msg", "请选择删除的信息");
+		}
+		return StringUtil.toJSon(map);
+	}
+
+	@RequestMapping("userEdit")
+	@RequiresPermissions("userInfo:edit")
+	public String userEdit() {
 		return "userInfoDel";
 	}
 }

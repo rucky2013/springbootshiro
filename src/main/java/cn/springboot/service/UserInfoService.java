@@ -28,9 +28,15 @@ public interface UserInfoService {
 	public UserInfo findByUsername(String username);
 
 	public void addUser(UserInfo userInfo);
+	
+	public UserInfo updateUser(UserInfo userInfo);
 
 	public Map<String, Object> getUserByPageable(String queryString,Integer page,Integer rows);
-
-	public void deleteById(String id);
+	
+	public void delete(String[] ids) throws Exception;
+	
+	public void deleteUser(int uid) throws Exception;
+	
+	
 
 }

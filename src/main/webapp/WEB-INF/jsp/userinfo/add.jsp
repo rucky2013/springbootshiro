@@ -3,8 +3,8 @@
 <%@include file="../common.jsp"%>
 <div class="easyui-layout" data-options="fit:true">
 	<form id="funcform" style="padding: 20px;">
-		<a><input type="text" class="x-form-text" id="username"
-			name="username" value="${user.username}">用户名</a> <input type="button"
+		<a>用户名<input type="text" class="x-form-text" id="username"
+			name="username" value="${user.username}"></a> <input type="button"
 			class="d-button d-state-highlight" value="提交" onclick="saveUser()"
 			style="width: 80px;" /><input type="button"
 			class="d-button d-state-highlight" value="返回" onclick="closeLayer()"
