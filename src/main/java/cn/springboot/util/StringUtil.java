@@ -25,7 +25,7 @@ public class StringUtil {
 	 * @param obj
 	 * @return
 	 */
-	public static String toJSon(Object object) {
+	public static String toJson(Object object) {
 		if (objectMapper == null) {
 			objectMapper = new ObjectMapper();
 		}

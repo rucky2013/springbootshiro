@@ -42,6 +42,7 @@ public class SysPermission implements Serializable {
 	private String permission; // 权限字符串,menu例子：role:*，button例子：role:create,role:update,role:delete,role:view
 	private Long parentId; // 父编号
 	private String parentIds; // 父编号列表
+	private Integer seq; //排序
 	private Boolean available = Boolean.FALSE;
 
 	@ManyToMany
@@ -121,12 +122,19 @@ public class SysPermission implements Serializable {
 		this.roles = roles;
 	}
 
+	public Integer getSeq() {
+		return seq;
+	}
+
+	public void setSeq(Integer seq) {
+		this.seq = seq;
+	}
+
 	@Override
 	public String toString() {
 		return "SysPermission [id=" + id + ", name=" + name + ", resourceType=" + resourceType + ", url=" + url
-				+ ", permission=" + permission + ", parentId=" + parentId + ", parentIds=" + parentIds
+				+ ", permission=" + permission + ", parentId=" + parentId + ", parentIds=" + parentIds + ", seq=" + seq
 				+ ", available=" + available + ", roles=" + roles + "]";
 	}
-	
-	
+
 }

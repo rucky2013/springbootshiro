@@ -24,6 +24,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -67,7 +68,7 @@ public class UserInfoController {
 
 		String queryString = req.getParameter("queryString");
 		System.out.println("查询条件：" + queryString);
-		return StringUtil.toJSon(userInfoService.getUserByPageable(queryString, page, rows));
+		return StringUtil.toJson(userInfoService.getUserByPageable(queryString, page, rows));
 	}
 
 	@RequestMapping("/userAddPage")
@@ -77,7 +78,6 @@ public class UserInfoController {
 	}
 
 	@RequestMapping("userAdd")
-	@RequiresPermissions("userInfo:add")
 	@ResponseBody
 	public String save(HttpServletRequest req, UserInfo user) {
 		try {
@@ -91,7 +91,7 @@ public class UserInfoController {
 			e.printStackTrace();
 		}
 
-		return StringUtil.toJSon(map);
+		return StringUtil.toJson(map);
 	}
 
 	@RequestMapping("userDelOne")
@@ -100,25 +100,51 @@ public class UserInfoController {
 	public String delete(HttpServletRequest req, String ids) throws IOException {
 		Map<String, Object> map = new HashMap<String, Object>();
 		if (!StringUtil.isEmpty(ids)) {
-			try {
-				userInfoService.deleteUser(Integer.parseInt(ids));
-				map.put("success", true);
-				map.put("msg", "信息删除成功");
-			} catch (Exception e) {
-				map.put("success", false);
-				map.put("msg", "提示:" + e.getMessage());
-				e.printStackTrace();
+			String[] id = ids.split(",");
+			if (!StringUtil.isEmpty(id) && id.length > 0) {
+				try {
+					userInfoService.deleteUser(id);
+					map.put("success", true);
+					map.put("msg", "信息删除成功");
+				} catch (Exception e) {
+					map.put("success", false);
+					map.put("msg", "提示:" + e.getMessage());
+					e.printStackTrace();
+				}
 			}
 		} else {
 			map.put("success", false);
 			map.put("msg", "请选择删除的信息");
 		}
-		return StringUtil.toJSon(map);
+		return StringUtil.toJson(map);
 	}
 
-	@RequestMapping("userEdit")
+	@RequestMapping("userEdit/{Id}")
 	@RequiresPermissions("userInfo:edit")
-	public String userEdit() {
-		return "userInfoDel";
+	public String userEdit(HttpServletRequest req, @PathVariable("Id") Integer Id) {
+		System.out.println("用户id:" + Id);
+		UserInfo user = userInfoService.findByUid(Id);
+		req.setAttribute("user", user);
+		return "userinfo/edit";
 	}
+
+	@RequestMapping("userUpdate")
+	public String updateUser(HttpServletRequest req, UserInfo userInfo) {
+		try {
+			if (!StringUtil.isEmpty(userInfo.getUid())) {
+				userInfoService.updateUser(userInfo);
+				map.put("success", true);
+				map.put("msg", "信息保存成功");
+			} else {
+				map.put("success", false);
+				map.put("msg", "Null");
+			}
+		} catch (Exception e) {
+			map.put("success", false);
+			map.put("msg", "提示:" + e.getMessage());
+			e.printStackTrace();
+		}
+		return StringUtil.toJson(map);
+	}
+
 }

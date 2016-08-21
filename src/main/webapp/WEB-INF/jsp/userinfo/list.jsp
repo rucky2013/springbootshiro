@@ -21,8 +21,8 @@
 					align : 'center',
 					formatter : function(value, row, index) {
 	                    var str = '';
-                        <shiro:hasPermission name="userInfo:userUpdate">
-                            str += $.formatString('<a href="javascript:void(0)" class="user-easyui-linkbutton-edit" data-options="plain:true,iconCls:\'icon-edit\'" onclick="editFun(\'{0}\');" >编辑</a>', row.id);
+                        <shiro:hasPermission name="userInfo:edit">
+                            str += $.formatString('<a href="javascript:void(0)" class="user-easyui-linkbutton-edit" data-options="plain:true,iconCls:\'icon-edit\'" onclick="editLayer(\'{0}\',\'{1}\',\'{2}\');" >编辑</a>','/userInfo/userEdit' ,row.uid,'编辑用户');
                         </shiro:hasPermission>
                         <shiro:hasPermission name="userInfo:delOne">
                             str += '&nbsp;&nbsp;|&nbsp;&nbsp;';

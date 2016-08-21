@@ -77,6 +77,18 @@ function autoLayer(url, title) {
 	layer.restore(index);
 }
 
+//当前窗口
+function editLayer(url, rowid,title) {
+	var index = layer.open({
+		title : title,
+		type : 2,
+		content : url+ "/" + rowid,
+		area : [ '80%', '80%' ],
+		maxmin : false
+	});
+	layer.restore(index);
+}
+
 function closeLayer() {
 	var index = parent.layer.getFrameIndex(window.name); // 先得到当前iframe层的索引
 	parent.layer.close(index); // 执行关闭自身操作
@@ -114,7 +126,6 @@ function save(formId, saveUrl) {
  */
 function deletebyIds(id, delUrl) {
 	var rows = $(id).datagrid("getSelections");// 获取多条记录
-	// alert(rows + "___" + rows.length);
 	if (rows.length <= 0) {
 		layer.msg("没有选择要删除的记录",{
 			time: 1000
@@ -145,9 +156,6 @@ function deletebyIds(id, delUrl) {
 }
 
 function deletebyId(id,rowid, delUrl) {
-	console.log(id);
-	console.log(rowid);
-	console.log(delUrl);
 	layer.confirm('确定删除？', {
 		  btn: ['确定','取消'] //按钮
 		}, function() {

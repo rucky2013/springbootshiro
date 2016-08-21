@@ -42,23 +42,33 @@ public class UserInfoServiceImpl implements UserInfoService {
 	@Resource
 	private UserInfoDao userInfoDao;
 
+	/**
+	 * 通过用户名查询用户，登录时使用
+	 */
 	@Override
 	public UserInfo findByUsername(String username) {
 		System.out.println("UserInfoServiceImpl.findByUsername()");
 		return userInfoDao.findByUsername(username);
 	}
 
+	/**
+	 * 新增用户
+	 */
 	@Override
 	public void addUser(UserInfo userInfo) {
 		userInfoDao.save(userInfo);
 	}
 
+	/**
+	 * 分页查询
+	 * queryString查询条件
+	 */
 	public Map<String, Object> getUserByPageable(String queryString, Integer page, Integer rows) {
 		// 排序
 		Sort sort = new Sort(Sort.Direction.DESC, "username").and(new Sort(Sort.Direction.ASC, "uid"));
 		// 当前页，每页条数
 		Pageable pageable = new PageRequest(page - 1, rows, sort);
-
+		//查询条件
 		Specification<UserInfo> spec = new Specification<UserInfo>() {
 			public Predicate toPredicate(Root<UserInfo> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
 				List<Predicate> list = new ArrayList<Predicate>();
@@ -88,27 +98,24 @@ public class UserInfoServiceImpl implements UserInfoService {
 		return map;
 	}
 
-	// 删除记录
+	/**
+	 * 删除用户
+	 */
 	@Override
-	public void delete(String[] ids) throws Exception {
-		if (!StringUtil.isEmpty(ids) && ids.length > 0) {
-			for (String id : ids) {
-				if (!StringUtil.isEmpty(id)) {
-					userInfoDao.delete(Long.parseLong(id));;
+	public void deleteUser(String[] ids) throws Exception {
+			if (!StringUtil.isEmpty(ids) && ids.length > 0) {
+				for (String id : ids) {
+					if (!StringUtil.isEmpty(id)) {
+						UserInfo userDel=userInfoDao.findOne(Long.parseLong(id));
+						userInfoDao.delete(userDel);
+					}
 				}
 			}
-		}
 	}
 
-	@Override
-	public void deleteUser(int uid) throws Exception {
-		UserInfo userDel=userInfoDao.findOne((long) uid);
-		if(userDel==null){
-			
-		}
-		userInfoDao.delete(userDel);
-	}
-
+	/**
+	 * 编辑用户信息
+	 */
 	@Override
 	public UserInfo updateUser(UserInfo userInfo) {
 		UserInfo userUpdate=userInfoDao.findOne(userInfo.getUid());
@@ -117,6 +124,11 @@ public class UserInfoServiceImpl implements UserInfoService {
 		}
 		userInfoDao.save(userUpdate);
 		return userUpdate;
+	}
+
+	@Override
+	public UserInfo findByUid(long uid) {
+		return userInfoDao.findOne(uid);
 	}
 	
 

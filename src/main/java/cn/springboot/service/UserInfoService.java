@@ -10,10 +10,6 @@ package cn.springboot.service;
 
 import java.util.Map;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-
 import cn.springboot.bean.UserInfo;
 
 /**
@@ -26,16 +22,16 @@ public interface UserInfoService {
 
 	// 通过username查找用户信息
 	public UserInfo findByUsername(String username);
-
+	// 通过id查找用户信息
+	public UserInfo findByUid(long uid);
+	//新增用户
 	public void addUser(UserInfo userInfo);
-	
+	//编辑用户信息
 	public UserInfo updateUser(UserInfo userInfo);
-
+	//分页条件查询
 	public Map<String, Object> getUserByPageable(String queryString,Integer page,Integer rows);
-	
-	public void delete(String[] ids) throws Exception;
-	
-	public void deleteUser(int uid) throws Exception;
+	//删除
+	public void deleteUser(String[] ids) throws Exception;
 	
 	
 
