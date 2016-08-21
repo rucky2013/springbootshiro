@@ -3,6 +3,7 @@
 <%@include file="../common.jsp"%>
 <div class="easyui-layout" data-options="fit:true">
 	<form id="funcform" style="padding: 20px;">
+		<input type="hidden" name="uid" value="${user.uid}" />
 		<a>用户名<input type="text" class="x-form-text" id="username"
 			name="username" value="${user.username}"></a> <input type="button"
 			class="d-button d-state-highlight" value="提交" onclick="saveUser()"
@@ -12,7 +13,7 @@
 	</form>
 	<script type="text/javascript">
 		function saveUser() {
-			save('#funcform', '/userInfo/updateUser');
+			save('#funcform', '/userInfo/userUpdate');
 		}
 	</script>
 </div>

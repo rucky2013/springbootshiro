@@ -82,9 +82,10 @@ function editLayer(url, rowid,title) {
 	var index = layer.open({
 		title : title,
 		type : 2,
-		content : url+ "/" + rowid,
+		content : url+"?rowid="+rowid,
 		area : [ '80%', '80%' ],
-		maxmin : false
+		maxmin : false,
+
 	});
 	layer.restore(index);
 }

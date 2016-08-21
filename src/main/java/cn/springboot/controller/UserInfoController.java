@@ -80,6 +80,7 @@ public class UserInfoController {
 	@RequestMapping("userAdd")
 	@ResponseBody
 	public String save(HttpServletRequest req, UserInfo user) {
+		System.out.println("我的user："+user.getUsername());
 		try {
 			user.setPassword("456");
 			userInfoService.addUser(user);
@@ -119,20 +120,22 @@ public class UserInfoController {
 		return StringUtil.toJson(map);
 	}
 
-	@RequestMapping("userEdit/{Id}")
+	@RequestMapping("userEdit")
 	@RequiresPermissions("userInfo:edit")
-	public String userEdit(HttpServletRequest req, @PathVariable("Id") Integer Id) {
-		System.out.println("用户id:" + Id);
-		UserInfo user = userInfoService.findByUid(Id);
+	public String userEdit(HttpServletRequest req, Integer rowid) {
+		System.out.println("用户id:" + rowid);
+		UserInfo user = userInfoService.findByUid(rowid);
 		req.setAttribute("user", user);
 		return "userinfo/edit";
 	}
 
 	@RequestMapping("userUpdate")
-	public String updateUser(HttpServletRequest req, UserInfo userInfo) {
+	@ResponseBody
+	public String updateUser(HttpServletRequest req, UserInfo user) {
+		System.out.println("用户信息："+user.getUid());
 		try {
-			if (!StringUtil.isEmpty(userInfo.getUid())) {
-				userInfoService.updateUser(userInfo);
+			if (!StringUtil.isEmpty(user.getUid())) {
+				userInfoService.updateUser(user);
 				map.put("success", true);
 				map.put("msg", "信息保存成功");
 			} else {
