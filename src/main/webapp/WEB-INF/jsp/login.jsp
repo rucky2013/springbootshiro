@@ -27,8 +27,8 @@
 						<div class="pwd">
 							<label>密&nbsp;&nbsp;&nbsp;码</label><input type="password"
 								class="text" name="password"  datatype="*6-16" nullmsg="请输入密码！"/>
-							<p style="text-align: center; line-height: 40px">
-								<input type="checkbox" name="rememberMe" />记住我
+							<p style="text-align: center; line-height: 45px">
+								<input type="checkbox" name="rememberMe" />&nbsp;&nbsp;记住我
 							</p>
 							<input type="submit" class="submit" tabindex="3" value="登录" />
 							<input type="reset"  class="reset" value="重 置" />

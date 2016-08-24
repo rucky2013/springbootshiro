@@ -9,7 +9,7 @@ input,button,select,textarea{outline:none}
 
 /*login*/
 .login{padding:1px 0 0 0;background:url(../images/login-bg.jpg) center top no-repeat #FFF;padding:150px 0 0 0;}
-.login input.submit{border:none;font-weight:bold;color:#FFF;margin:5px 0 0 110px;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;-webkit-box-shadow: #CCC 0px 0px 5px;-moz-box-shadow: #CCC 0px 0px 5px;box-shadow: #CCC 0px 0px 5px;background: #31b6e7;cursor: pointer;}
+.login input.submit{border:none;font-weight:bold;color:#FFF;margin:1px 0 0 110px;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;-webkit-box-shadow: #CCC 0px 0px 5px;-moz-box-shadow: #CCC 0px 0px 5px;box-shadow: #CCC 0px 0px 5px;background: #31b6e7;cursor: pointer;}
 .login input.submit:hover{background:#ff9229;}
 .login input.submit{padding:5px 20px;}
 .login input.reset{border:none;font-weight:bold;color:#FFF;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;-webkit-box-shadow: #CCC 0px 0px 5px;-moz-box-shadow: #CCC 0px 0px 5px;box-shadow: #CCC 0px 0px 5px;background: #31b6e7;cursor: pointer;}
