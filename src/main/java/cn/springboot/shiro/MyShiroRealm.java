@@ -15,6 +15,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
+import org.apache.shiro.authc.DisabledAccountException;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
@@ -106,6 +107,10 @@ public class MyShiroRealm extends AuthorizingRealm {
 		System.out.println("---------->>userInfo=" + userInfo);
 		if (userInfo == null) {
 			return null;
+		}
+		
+		if(userInfo.getState()==1){
+			throw new DisabledAccountException();
 		}
 		/*
 		 * 获取权限信息:这里没有进行实现 请自行根据UserInfo,Role,Permission进行实现

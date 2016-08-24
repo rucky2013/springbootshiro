@@ -9,22 +9,17 @@
 package cn.springboot.controller;
 
 import java.io.IOException;
-import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.apache.shiro.session.Session;
+import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -62,7 +57,6 @@ public class UserInfoController {
 	 * @Title: userInfo @Description: TODO @return @throws
 	 */
 	@RequestMapping("/listDetail")
-	@RequiresPermissions("userInfo:listdetail")
 	@ResponseBody
 	public String listDetail(HttpServletRequest req, Integer page, Integer rows) {
 
@@ -80,7 +74,6 @@ public class UserInfoController {
 	@RequestMapping("userAdd")
 	@ResponseBody
 	public String save(HttpServletRequest req, UserInfo user) {
-		System.out.println("我的user："+user.getUsername());
 		try {
 			user.setPassword("456");
 			userInfoService.addUser(user);
@@ -126,13 +119,13 @@ public class UserInfoController {
 		System.out.println("用户id:" + rowid);
 		UserInfo user = userInfoService.findByUid(rowid);
 		req.setAttribute("user", user);
+		System.out.println(req.getAttribute("user").toString());
 		return "userinfo/edit";
 	}
 
 	@RequestMapping("userUpdate")
 	@ResponseBody
 	public String updateUser(HttpServletRequest req, UserInfo user) {
-		System.out.println("用户信息："+user.getUid());
 		try {
 			if (!StringUtil.isEmpty(user.getUid())) {
 				userInfoService.updateUser(user);
@@ -149,5 +142,4 @@ public class UserInfoController {
 		}
 		return StringUtil.toJson(map);
 	}
-
 }

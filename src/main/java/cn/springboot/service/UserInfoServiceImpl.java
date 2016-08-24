@@ -63,6 +63,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 	 * 分页查询
 	 * queryString查询条件
 	 */
+	@Override
 	public Map<String, Object> getUserByPageable(String queryString, Integer page, Integer rows) {
 		// 排序
 		Sort sort = new Sort(Sort.Direction.DESC, "username").and(new Sort(Sort.Direction.ASC, "uid"));
@@ -88,8 +89,9 @@ public class UserInfoServiceImpl implements UserInfoService {
 			for (Object obj : lists) {
 				UserInfo us = new UserInfo();
 				UserInfo u = (UserInfo) obj;
-				us.setUsername(u.getUsername());
 				us.setUid(u.getUid());
+				us.setUsername(u.getUsername());
+				us.setName(u.getName());
 				list.add(us);
 			}
 		}
@@ -121,6 +123,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 		UserInfo userUpdate=userInfoDao.findOne(userInfo.getUid());
 		if(userInfo.getUsername()!=null){
 			userUpdate.setUsername(userInfo.getUsername());
+			userUpdate.setName(userInfo.getName());
 		}
 		userInfoDao.save(userUpdate);
 		return userUpdate;

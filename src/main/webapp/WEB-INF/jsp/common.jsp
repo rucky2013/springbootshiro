@@ -11,6 +11,5 @@
 
 <script type="text/javascript" src="../js/common.js"></script>
 
-<!-- layer -->
 <script type="text/javascript" src="../layer/layer.js"></script>
 <link rel="stylesheet" type="text/css" href="../layer/skin/layer.css">

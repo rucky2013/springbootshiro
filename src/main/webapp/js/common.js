@@ -7,10 +7,10 @@
  * @returns 格式化后的字符串
  */
 $.formatString = function(str) {
-    for ( var i = 0; i < arguments.length - 1; i++) {
-        str = str.replace("{" + i + "}", arguments[i + 1]);
-    }
-    return str;
+	for (var i = 0; i < arguments.length - 1; i++) {
+		str = str.replace("{" + i + "}", arguments[i + 1]);
+	}
+	return str;
 }
 
 function datagrid(id, title, dataUrl, toolbar, sortName, columns, fcolumn) {
@@ -54,16 +54,19 @@ function dataGrid(id, title, dataUrl, toolbar, pageList, pageSize, sortName,
 
 // 弹出即全屏，父窗口
 function fullPage(url, title) {
-	returnValue = parent.layer.open({
+	returnValue = top.layer.open({
 		type : 2,
 		title : title,
 		maxmin : false,
-		area : [ '80%', '80%' ],
+		// area : [ '80%', '80%' ],
 		content : url,
-		scrollbar : true
+		scrollbar : true,
+		end : function() {
+			$("#tt").datagrid('reload');
+		}
 	});
-	parent.layer.restore(returnValue);
-	return returnValue;
+	top.layer.restore(returnValue);
+	//return returnValue;
 }
 // 当前窗口
 function autoLayer(url, title) {
@@ -72,37 +75,33 @@ function autoLayer(url, title) {
 		type : 2,
 		content : url,
 		area : [ '80%', '80%' ],
-		maxmin : false
+		maxmin : false,
+		end : function() {
+			$("#tt").datagrid('reload');
+		}
 	});
 	layer.restore(index);
 }
 
-//当前窗口
-function editLayer(url, rowid,title) {
-	var index = layer.open({
+// 当前窗口
+function editLayer(url, rowid, title) {
+	var index = top.layer.open({
 		title : title,
 		type : 2,
-		content : url+"?rowid="+rowid,
-		area : [ '80%', '80%' ],
+		content : url + "?rowid=" + rowid,
+		area : [ '40%', '80%' ],
 		maxmin : false,
+		end : function() {
+			$("#tt").datagrid('reload');
+		}
 
 	});
-	layer.restore(index);
+	top.layer.restore(index);
 }
 
 function closeLayer() {
 	var index = parent.layer.getFrameIndex(window.name); // 先得到当前iframe层的索引
 	parent.layer.close(index); // 执行关闭自身操作
-}
-
-function nLayer(url, title) {
-	layer.open({
-		title : title,
-		type : 2,
-		content : [ url, 'no' ]
-	// 这里content是一个URL，如果你不想让iframe出现滚动条，你还可以content:
-	// ['http://sentsin.com', 'no']
-	});
 }
 
 function save(formId, saveUrl) {
@@ -111,7 +110,7 @@ function save(formId, saveUrl) {
 		if (data != null) {
 			if (data.success) {
 				parent.layer.msg(data.msg);
-				parent.$("#tt").datagrid('reload');
+				// parent.$("#tt").datagrid('reload');
 				closeLayer();
 			} else {
 				parent.layer.msg(data.msg);
@@ -128,18 +127,19 @@ function save(formId, saveUrl) {
 function deletebyIds(id, delUrl) {
 	var rows = $(id).datagrid("getSelections");// 获取多条记录
 	if (rows.length <= 0) {
-		layer.msg("没有选择要删除的记录",{
-			time: 1000
+		layer.msg("没有选择要删除的记录", {
+			time : 1000
 		});
 		layer.tips('请选择要删除的记录', id);
 		return false;
 	}
-	layer.confirm('确定删除'+rows.length+'条记录？', {
-		  btn: ['确定','取消'] //按钮
-		}, function() {
+	top.layer.confirm('确定删除' + rows.length + '条记录？', {
+		btn : [ '确定', '取消' ]
+	// 按钮
+	}, function() {
 		if (rows && rows.length > 0) {
 			var idss = new Array();
-			for ( var i = 0; i < rows.length; i++) {
+			for (var i = 0; i < rows.length; i++) {
 				idss.push(rows[i].uid);
 			}
 			$.post(delUrl, {
@@ -147,28 +147,36 @@ function deletebyIds(id, delUrl) {
 			}, function(data) {
 				if (data.success) {
 					$(id).datagrid('reload');
-					layer.msg(data.msg);
+					top.layer.msg(data.msg, {
+						time : 1000
+					});
 				} else {
-					layer.msg(data.msg);
+					top.layer.msg(data.msg, {
+						time : 1000
+					})
 				}
 			}, "json");
 		}
 	});
 }
 
-function deletebyId(id,rowid, delUrl) {
-	layer.confirm('确定删除？', {
-		  btn: ['确定','取消'] //按钮
-		}, function() {
-			$.post(delUrl, {
-				ids : rowid.toString()
-			}, function(data) {
-				if (data.success) {
-					$(id).datagrid('reload');
-					layer.msg(data.msg);
-				} else {
-					layer.msg(data.msg);
-				}
-			}, "json");
+function deletebyId(id, rowid, delUrl) {
+	console.log(rowid);
+	top.layer.confirm('确定删除？', {
+		btn : [ '确定', '取消' ]
+	// 按钮
+	}, function() {
+		$.post(delUrl, {
+			ids : rowid.toString()
+		}, function(data) {
+			if (data.success) {
+				$(id).datagrid('reload');
+				top.layer.msg(data.msg, {
+					time : 1000
+				})
+			} else {
+				top.layer.msg(data.msg);
+			}
+		}, "json");
 	});
 }
