@@ -62,6 +62,9 @@ public class ShiroConfiguration {
 
 		// 过滤链定义，从上向下顺序执行，一般将/**放置最下边
 		filterChainDefinitionMap.put("/favicon.ico", "anon");
+		filterChainDefinitionMap.put("/css/**", "anon");
+		filterChainDefinitionMap.put("/js/**", "anon");
+		filterChainDefinitionMap.put("/fpage/**", "anon");
 		// authc:所有URL都必须认证通过才能访问；anon:所有URL都可以匿名访问
 		filterChainDefinitionMap.put("/**", "authc");
 

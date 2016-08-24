@@ -72,13 +72,13 @@ public class HomeController {
 		if (exception != null) {
 			if (UnknownAccountException.class.getName().equals(exception)) {
 				System.out.println("UnknownAccountException-->帐号不存在");
-				msg = "UnknownAccountException-->帐号不存在";
+				msg = "帐号不存在";
 			} else if (IncorrectCredentialsException.class.getName().equals(exception)) {
 				System.out.println("IncorrectCredentialsException-->密码不正确");
-				msg = "IncorrectCredentialsException-->密码不正确";
+				msg = "密码不正确";
 			} else if(DisabledAccountException.class.getName().equals(exception)){
 				System.out.println("DisabledAccountException-->账户未启用");
-				msg = "DisabledAccountException-->账户未启用";
+				msg = "账户未启用";
 			} else {
 				msg = "else>>" + exception;
 				System.out.println("else-->" + exception);

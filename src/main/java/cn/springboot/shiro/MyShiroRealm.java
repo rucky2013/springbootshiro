@@ -25,6 +25,7 @@ import org.apache.shiro.util.ByteSource;
 
 import cn.springboot.bean.UserInfo;
 import cn.springboot.service.UserInfoService;
+import cn.springboot.util.StringUtil;
 import cn.springboot.bean.SysPermission;
 import cn.springboot.bean.SysRole;
 
@@ -100,7 +101,7 @@ public class MyShiroRealm extends AuthorizingRealm {
 		// 获取用户输入的帐号
 		String username = (String) token.getPrincipal();
 		System.out.println(ReflectionToStringBuilder.toString(token, ToStringStyle.MULTI_LINE_STYLE));
-
+		
 		// 通过username从数据库中查找User对象，如果找到
 		// 实际项目中，这里可以根据实际情况做缓存，如果不做，Shiro自己也是有时间间隔机制，2分钟内不会重复执行该方法
 		UserInfo userInfo = userInfoService.findByUsername(username);
