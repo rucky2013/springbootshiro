@@ -11,7 +11,7 @@
 
 <script type="text/javascript" src="../js/common.js"></script>
 
-<script type="text/javascript" src="../layer/layer.js"></script>
-<link rel="stylesheet" type="text/css" href="../layer/skin/layer.css">
+<script type="text/javascript" src="../js/layer.js"></script>
+<link rel="stylesheet" type="text/css" href="../js/skin/layer.css">
 
 <script type="text/javascript" src="../js/Validform_v5.3.2_min.js"></script>

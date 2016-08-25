@@ -57,7 +57,7 @@ public class ShiroConfiguration {
 		filterChainDefinitionMap.put("/logout", "logout");
 		
 		//配置记住密码或认证通过可以访问的地址
-		filterChainDefinitionMap.put("/index", "user");
+		filterChainDefinitionMap.put("/index", "user");//user级别rememberme可以直接访问
 		filterChainDefinitionMap.put("/", "user");
 
 		// 过滤链定义，从上向下顺序执行，一般将/**放置最下边
@@ -65,6 +65,7 @@ public class ShiroConfiguration {
 		filterChainDefinitionMap.put("/css/**", "anon");
 		filterChainDefinitionMap.put("/js/**", "anon");
 		filterChainDefinitionMap.put("/fpage/**", "anon");
+		filterChainDefinitionMap.put("/jquery-easyui-1.5/**", "anon");
 		// authc:所有URL都必须认证通过才能访问；anon:所有URL都可以匿名访问
 		filterChainDefinitionMap.put("/**", "authc");
 

@@ -1,3 +1,12 @@
 cd %userprofile%\.m2\repository
 for /r %i in (*.lastUpdated) do del %i
 Then rightclick on your project in eclipse and choose Maven->"Update Project ..."
+
+
+springboot
+shiro
+mysql
+spring data JPA
+easyui
+layer
+Validform
