@@ -97,10 +97,10 @@ public class ShiroConfiguration {
 	@Bean
 	public SecurityManager securityManager() {
 		DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
+		// 注入缓存管理器
+		//securityManager.setCacheManager(ehCacheManager());
 		// 设置realm
 		securityManager.setRealm(myShiroRealm());
-		// 注入缓存管理器
-		securityManager.setCacheManager(ehCacheManager());
 		//注入记住密码管理器
 		securityManager.setRememberMeManager(rememberMeManager());
 		return securityManager;

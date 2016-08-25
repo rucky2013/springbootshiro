@@ -60,24 +60,11 @@ public class MyShiroRealm extends AuthorizingRealm {
 		 */
 		System.out.println("权限配置-->MyShiroRealm.doGetAuthorizationInfo()");
 		SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
-		String userName = (String) principals.getPrimaryPrincipal();
-		UserInfo userInfo=userInfoService.findByUsername(userName);
+		UserInfo userInfo = (UserInfo)principals.getPrimaryPrincipal();
+		//String userName = (String) principals.getPrimaryPrincipal();
+		//UserInfo userInfo=userInfoService.findByUsername(userName);
 		//实际项目中，这里可以根据实际情况做缓存，如果不做，Shiro自己也是有时间间隔机制，2分钟内不会重复执行该方法
-		//     UserInfo userInfo = userInfoService.findByUsername(username)
-		//权限单个添加;
-		// 或者按下面这样添加
-		//添加一个角色,不是配置意义上的添加,而是证明该用户拥有admin角色    
-		//     authorizationInfo.addRole("admin");  
-		//添加权限  
-		//     authorizationInfo.addStringPermission("userInfo:query");
-		///在认证成功之后返回.
-		//设置角色信息.
-			//支持 Set集合,
-			//用户的角色对应的所有权限，如果只使用角色定义访问权限，下面的四行可以不要
-		//        List<Role> roleList=user.getRoleList();
-		//        for (Role role : roleList) {
-		//            info.addStringPermissions(role.getPermissionsName());
-		//        }
+
 		for(SysRole role:userInfo.getRoleList()){
 			authorizationInfo.addRole(role.getRole());
 			for(SysPermission p : role.getPermission()){
@@ -100,6 +87,7 @@ public class MyShiroRealm extends AuthorizingRealm {
 
 		// 获取用户输入的帐号
 		String username = (String) token.getPrincipal();
+		
 		System.out.println(ReflectionToStringBuilder.toString(token, ToStringStyle.MULTI_LINE_STYLE));
 		
 		// 通过username从数据库中查找User对象，如果找到
@@ -122,7 +110,7 @@ public class MyShiroRealm extends AuthorizingRealm {
 		// 加密方式;
 		// 交给AuthenticatingRealm使用CredentialsMatcher进行密码匹配，也可以自定义实现
 		SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(
-				userInfo.getUsername(), // 用户名
+				userInfo,// 用户名
 				userInfo.getPassword(),// 密码
 				ByteSource.Util.bytes(userInfo.getCredentialsSalt()), // salt=username+salt
 				getName() // realm name

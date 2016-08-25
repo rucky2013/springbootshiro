@@ -84,6 +84,11 @@ public class SysPermissionServiceImpl implements SysPermissionService {
 				SysPermission u = (SysPermission) obj;
 				us.setId(u.getId());
 				us.setName(u.getName());
+				us.setAvailable(u.getAvailable());
+				us.setPermission(u.getPermission());
+				us.setUrl(u.getUrl());
+				us.setResourceType(u.getResourceType());
+				us.setParentId(u.getParentId());
 				list.add(us);
 			}
 		}
@@ -113,8 +118,14 @@ public class SysPermissionServiceImpl implements SysPermissionService {
 	@Override
 	public SysPermission updatePermission(SysPermission sysPermission) {
 		SysPermission permissionUpdate = sysPermissionDao.findOne(sysPermission.getId());
+		System.out.println("权限："+sysPermission.toString());
 		if (sysPermission.getName() != null) {
 			permissionUpdate.setName(sysPermission.getName());
+			permissionUpdate.setAvailable(sysPermission.getAvailable());
+			permissionUpdate.setParentId(sysPermission.getParentId());
+			permissionUpdate.setPermission(sysPermission.getPermission());
+			permissionUpdate.setResourceType(sysPermission.getResourceType());
+			permissionUpdate.setUrl(sysPermission.getUrl());
 		}
 		sysPermissionDao.save(permissionUpdate);
 		return permissionUpdate;

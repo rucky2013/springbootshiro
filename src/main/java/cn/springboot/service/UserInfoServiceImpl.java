@@ -26,6 +26,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import cn.springboot.bean.SysRole;
 import cn.springboot.bean.UserInfo;
 import cn.springboot.dao.UserInfoDao;
 import cn.springboot.util.StringUtil;
@@ -92,6 +93,14 @@ public class UserInfoServiceImpl implements UserInfoService {
 				us.setUid(u.getUid());
 				us.setUsername(u.getUsername());
 				us.setName(u.getName());
+/*				List<SysRole> roleList=u.getRoleList();
+				System.out.println("UUUUUUUU:"+roleList.toString()+"MMMMM");
+				List roleId=new ArrayList();
+				for (SysRole role : roleList) {
+					role.getPermission();
+					System.out.println(role.getPermission().toString());
+					roleId.add(role.getId());
+				}*/
 				list.add(us);
 			}
 		}

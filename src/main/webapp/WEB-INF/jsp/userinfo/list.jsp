@@ -21,6 +21,12 @@
 					align : 'center'
 				},
 				{
+					field : "roleList",
+					title : "角色",
+					width : 160,
+					align : 'center'
+				},
+				{
 					field : 'action',
 					title : '操作',
 					width : 130,
@@ -31,32 +37,37 @@
 						str += $
 								.formatString(
 										'<a href="javascript:void(0)"   onclick="editLayer(\'{0}\',\'{1}\',\'{2}\');" >编辑</a>',
-										'/userInfo/userEdit', row.uid, '编辑用户');
+										'/userInfo/edit', row.id, '编辑用户');
 						</shiro:hasPermission>
-						<shiro:hasPermission name="userInfo:delOne">
+						<shiro:hasPermission name="userInfo:del">
 						str += '&nbsp;&nbsp;|&nbsp;&nbsp;';
 						str += $
 								.formatString(
 										'<a href="javascript:void(0)"   onclick="deletebyId(\'{0}\',\'{1}\',\'{2}\');" >删除</a>',
-										'#tt', row.uid, '/userInfo/userDelOne');
+										'#tt', row.id, '/userInfo/del');
 						</shiro:hasPermission>
 						return str;
 					}
 				} ] ]
-		datagrid("#tt", "", "/userInfo/listDetail", "#tb", "id", columns,fcolumn);
+		datagrid("#tt", "", "/userInfo/listDetail", "#tb", "id", columns,
+				fcolumn);
 	});
 </script>
 <table id="tt">
 </table>
 <div id="tb" style="height: 28px; display: none;">
 	<div style="margin: 2px;">
-		<a href="javascript:void(0)" class="easyui-linkbutton"
-			data-options="iconCls:'icon-add',plain:true"
-			onclick="addPage('/userInfo/userAddPage','添加用户')">添加</a> <a
-			href="javascript:void(0)" class="easyui-linkbutton"
-			data-options="iconCls:'icon-remove',plain:true"
-			onclick="deletebyIds('#tt','/userInfo/userDelOne')">删除</a> <span
-			style="float: right;"><input class="easyui-searchbox"
+		<shiro:hasPermission name="userInfo:add">
+			<a href="javascript:void(0)" class="easyui-linkbutton"
+				data-options="iconCls:'icon-add',plain:true"
+				onclick="addPage('/userInfo/add','添加用户')">添加</a>
+		</shiro:hasPermission>
+		<shiro:hasPermission name="userInfo:del">
+			<a href="javascript:void(0)" class="easyui-linkbutton"
+				data-options="iconCls:'icon-remove',plain:true"
+				onclick="deletebyIds('#tt','/userInfo/del')">删除</a>
+		</shiro:hasPermission>
+		<span style="float: right;"><input class="easyui-searchbox"
 			data-options="prompt:'请输入用户名',searcher:doSearch"
 			style="width: 300px; height: 24px;" /></span> <span style="clear: both;"></span>
 		<script type="text/javascript">

@@ -19,33 +19,36 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
-/** 
- * @ClassName: SysRole 
+/**
+ * @ClassName: SysRole
  * @Description: 系统角色实体类
  * @author SUN
- * @date 2016年8月10日 下午7:18:47  
+ * @date 2016年8月10日 下午7:18:47
  */
 @Entity
-public class SysRole implements Serializable{
+public class SysRole implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	@Id@GeneratedValue
-	private long id;//编号
-	
-	private String role ;//角色标识程序中判断使用,如"admin",这个是唯一的
-	
-	private String description; //角色描述，UI显示使用
-	
-	private Boolean available=Boolean.FALSE;//是否可用，不可用不会添加给用户
-	
-	//角色--权限关系：多对多
-	@ManyToMany(fetch=FetchType.EAGER)
-	@JoinTable(name="SysRolePermission",joinColumns={@JoinColumn(name="roleId")},inverseJoinColumns={@JoinColumn(name="permissionId")})
+	@Id
+	@GeneratedValue
+	private long id;// 编号
+
+	private String role;// 角色标识程序中判断使用,如"admin",这个是唯一的
+
+	private String description; // 角色描述，UI显示使用
+
+	private Boolean available = Boolean.FALSE;// 是否可用，不可用不会添加给用户
+
+	// 角色--权限关系：多对多
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "SysRolePermission", joinColumns = { @JoinColumn(name = "roleId") }, inverseJoinColumns = {
+			@JoinColumn(name = "permissionId") })
 	private List<SysPermission> permission;
-	
+
 	// 用户 - 角色关系定义;
-	@ManyToMany
-	@JoinTable(name="SysUserRole",joinColumns={@JoinColumn(name="roleId")},inverseJoinColumns={@JoinColumn(name="uid")})
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "SysUserRole", joinColumns = { @JoinColumn(name = "roleId") }, inverseJoinColumns = {
+			@JoinColumn(name = "uid") })
 	private List<UserInfo> userInfos;// 一个角色对应多个用户
 
 	public long getId() {
@@ -99,9 +102,7 @@ public class SysRole implements Serializable{
 	@Override
 	public String toString() {
 		return "SysRole [id=" + id + ", role=" + role + ", description=" + description + ", available="
-				+ available + ", userInfos=" + userInfos + "]";
+				+ available + "]";
 	}
-	
-	
 
 }

@@ -8,6 +8,9 @@
  */
 package cn.springboot.util;
 
+import org.apache.shiro.crypto.hash.SimpleHash;
+import org.apache.shiro.util.ByteSource;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
@@ -61,6 +64,10 @@ public class StringUtil {
 			return true;
 		}
 		return false;
+	}
+	
+	public static String password(String username,String password){
+		return new SimpleHash("md5",password,ByteSource.Util.bytes(username+"8d78869f470951332959580424d4bf4f"),2).toHex(); 
 	}
 
 

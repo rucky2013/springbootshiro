@@ -15,10 +15,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.apache.shiro.session.Session;
-import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -46,8 +43,8 @@ public class UserInfoController {
 	 * 
 	 * @Title: userInfo @Description: 用户查询 @return @throws
 	 */
-	@RequestMapping("/userList")
-	@RequiresPermissions("userInfo:view")
+	@RequestMapping("/list")
+	@RequiresPermissions("userInfo:list")
 	public String userInfo() {
 		return "userinfo/list";
 	}
@@ -65,17 +62,17 @@ public class UserInfoController {
 		return StringUtil.toJson(userInfoService.getUserByPageable(queryString, page, rows));
 	}
 
-	@RequestMapping("/userAddPage")
+	@RequestMapping("/add")
 	@RequiresPermissions("userInfo:add")
 	public String userAddPage() {
 		return "userinfo/add";
 	}
 
-	@RequestMapping("userAdd")
+	@RequestMapping("save")
 	@ResponseBody
 	public String save(HttpServletRequest req, UserInfo user) {
 		try {
-			user.setPassword("456");
+			user.setPassword(StringUtil.password(user.getUsername(),"111111"));
 			userInfoService.addUser(user);
 			map.put("success", true);
 			map.put("msg", "信息提交成功");
@@ -88,8 +85,8 @@ public class UserInfoController {
 		return StringUtil.toJson(map);
 	}
 
-	@RequestMapping("userDelOne")
-	@RequiresPermissions("userInfo:delOne")
+	@RequestMapping("del")
+	@RequiresPermissions("userInfo:del")
 	@ResponseBody
 	public String delete(HttpServletRequest req, String ids) throws IOException {
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -113,7 +110,7 @@ public class UserInfoController {
 		return StringUtil.toJson(map);
 	}
 
-	@RequestMapping("userEdit")
+	@RequestMapping("edit")
 	@RequiresPermissions("userInfo:edit")
 	public String userEdit(HttpServletRequest req, Integer rowid) {
 		System.out.println("用户id:" + rowid);

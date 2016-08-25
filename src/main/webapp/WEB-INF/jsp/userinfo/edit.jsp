@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@include file="../common.jsp"%>
 <form id="ff">
-	<input type="hidden" name="uid" value="${user.uid}" />
+	<input type="hidden" name="id" value="${user.id}" />
 	<div style="margin-bottom: 20px">
 		<input class="easyui-textbox" name="username" style="width: 100%"
 			data-options="label:'用户名:'" value="${user.username}">

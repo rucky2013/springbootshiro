@@ -50,6 +50,8 @@ public class UserInfo implements Serializable {
 	@JoinTable(name="SysUserRole" ,joinColumns={@JoinColumn(name="uid")},inverseJoinColumns={@JoinColumn(name = "roleId") })
 	private List<SysRole> roleList; //一个用户多个角色
 
+
+
 	public long getUid() {
 		return uid;
 	}
