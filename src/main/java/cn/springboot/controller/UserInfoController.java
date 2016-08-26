@@ -10,6 +10,7 @@ package cn.springboot.controller;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -20,7 +21,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import cn.springboot.bean.SysRole;
 import cn.springboot.bean.UserInfo;
+import cn.springboot.service.SysRoleService;
 import cn.springboot.service.UserInfoService;
 import cn.springboot.util.StringUtil;
 
@@ -38,6 +41,8 @@ public class UserInfoController {
 	private Map<String, Object> map = new HashMap<String, Object>();
 	@Resource
 	private UserInfoService userInfoService;
+	@Resource
+	private SysRoleService sysRoleService;
 
 	/**
 	 * 
@@ -113,8 +118,21 @@ public class UserInfoController {
 	@RequestMapping("edit")
 	@RequiresPermissions("userInfo:edit")
 	public String userEdit(HttpServletRequest req, Integer rowid) {
-		System.out.println("用户id:" + rowid);
 		UserInfo user = userInfoService.findByUid(rowid);
+		List<SysRole> roles = user.getRoleList();
+		StringBuilder str = new StringBuilder();
+		if (roles != null) {
+			for (SysRole role : roles) {
+				str.append(role.getId() + ",");
+			}
+		}
+		String temp = null;
+		if (!StringUtil.isEmpty(str) && str.length() > 0) {
+			temp = str.substring(0, str.length() - 1);
+		} else {
+			temp = str.toString();
+		}
+		req.setAttribute("roles", temp);
 		req.setAttribute("user", user);
 		System.out.println(req.getAttribute("user").toString());
 		return "userinfo/edit";
@@ -138,5 +156,11 @@ public class UserInfoController {
 			e.printStackTrace();
 		}
 		return StringUtil.toJson(map);
+	}
+	
+	@RequestMapping(value = "/getRoles")
+	@ResponseBody
+	public String getRoleList(HttpServletRequest req) throws Exception {
+		return StringUtil.toJson(sysRoleService.getAllRoles());
 	}
 }

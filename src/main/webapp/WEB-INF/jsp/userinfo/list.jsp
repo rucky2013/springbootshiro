@@ -37,14 +37,14 @@
 						str += $
 								.formatString(
 										'<a href="javascript:void(0)"   onclick="editLayer(\'{0}\',\'{1}\',\'{2}\');" >编辑</a>',
-										'/userInfo/edit', row.id, '编辑用户');
+										'/userInfo/edit', row.uid, '编辑用户');
 						</shiro:hasPermission>
 						<shiro:hasPermission name="userInfo:del">
 						str += '&nbsp;&nbsp;|&nbsp;&nbsp;';
 						str += $
 								.formatString(
 										'<a href="javascript:void(0)"   onclick="deletebyId(\'{0}\',\'{1}\',\'{2}\');" >删除</a>',
-										'#tt', row.id, '/userInfo/del');
+										'#tt', row.uid, '/userInfo/del');
 						</shiro:hasPermission>
 						return str;
 					}

@@ -13,7 +13,7 @@
 					title : "资源ID",
 					width : 100,
 					align : 'center',
-					
+
 				},
 				{
 					field : "name",
@@ -82,13 +82,17 @@
 </table>
 <div id="tb" style="height: 28px; display: none;">
 	<div style="margin: 2px;">
-		<a href="javascript:void(0)" class="easyui-linkbutton"
-			data-options="iconCls:'icon-add',plain:true"
-			onclick="addPage('/sysper/add','添加用户')">添加</a> <a
-			href="javascript:void(0)" class="easyui-linkbutton"
-			data-options="iconCls:'icon-remove',plain:true"
-			onclick="deletebyIds('#tt','/sysper/del')">删除</a> <span
-			style="float: right;"><input class="easyui-searchbox"
+		<shiro:hasPermission name="permission:add">
+			<a href="javascript:void(0)" class="easyui-linkbutton"
+				data-options="iconCls:'icon-add',plain:true"
+				onclick="addPage('/sysper/add','添加用户')">添加</a>
+		</shiro:hasPermission>
+		<shiro:hasPermission name="permission:del">
+			<a href="javascript:void(0)" class="easyui-linkbutton"
+				data-options="iconCls:'icon-remove',plain:true"
+				onclick="deletebyIds('#tt','/sysper/del')">删除</a>
+		</shiro:hasPermission>
+		<span style="float: right;"><input class="easyui-searchbox"
 			data-options="prompt:'请输入资源名称或描述',searcher:doSearch"
 			style="width: 300px; height: 24px;" /></span> <span style="clear: both;"></span>
 		<script type="text/javascript">
@@ -112,7 +116,7 @@
 				top.layer.restore(returnValue);
 				return returnValue;
 			}
-			
+
 			$('#tt').datagrid({
 				rowStyler : function(index, row) {
 					if (row.resourceType == "menu") {

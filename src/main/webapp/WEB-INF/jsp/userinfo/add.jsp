@@ -11,10 +11,15 @@
 			data-options="label:'姓名'" value="${user.name}">
 	</div>
 	<div style="margin-bottom: 20px">
-		<select class="easyui-combobox" name="roleList"
+		<select id="roleList" class="easyui-combobox" name="roleList"
 			data-options="label:'角色'" style="width: 100%;">
-			<option value="1">管理员</option>
-			<option value="2">用户</option>
+		</select>
+	</div>
+	<div style="margin-bottom: 20px">
+		<select id="state" class="easyui-combobox" name="state"
+			data-options="label:'是否启用'" style="width: 100%;">
+			<option value="0">启用</option>
+			<option value="1">禁用</option>
 		</select>
 	</div>
 </form>
@@ -29,4 +34,12 @@
 	function saveUser() {
 		save('#ff', '/userInfo/save');
 	}
+
+	$('#roleList').combobox({
+		url : 'getRoles',
+		valueField : 'id',
+		textField : 'roleName',
+		multiple : true,
+		panelHeight : 'auto'
+	});
 </script>

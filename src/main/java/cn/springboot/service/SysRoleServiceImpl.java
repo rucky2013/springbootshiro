@@ -123,4 +123,20 @@ public class SysRoleServiceImpl implements SysRoleService {
 	public SysRole findById(long id) {
 		return sysRoleDao.findOne(id);
 	}
+	
+	@Override
+	public List<Map<String, Object>> getAllRoles() {
+		List<Map<String, Object>> mapList = new ArrayList<Map<String, Object>>();
+		List<SysRole> roleList = sysRoleDao.findAll();
+		if (null != roleList && roleList.size() > 0) {
+			for (Object roleObj : roleList) {
+				SysRole role = (SysRole) roleObj;
+				Map<String, Object> map = new HashMap<String, Object>();
+				map.put("id", role.getId());
+				map.put("roleName", role.getDescription());
+				mapList.add(map);
+			}
+		}
+		return mapList;
+	}
 }

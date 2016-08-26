@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@include file="../common.jsp"%>
 <form id="ff">
-	<input type="hidden" name="id" value="${user.id}" />
+	<input type="hidden" name="uid" value="${user.uid}" />
 	<div style="margin-bottom: 20px">
 		<input class="easyui-textbox" name="username" style="width: 100%"
 			data-options="label:'用户名:'" value="${user.username}">
@@ -10,6 +10,18 @@
 	<div style="margin-bottom: 20px">
 		<input class="easyui-textbox" name="name" style="width: 100%"
 			data-options="label:'姓名'" value="${user.name}">
+	</div>
+	<div style="margin-bottom: 20px">
+		<select id="roleList" class="easyui-combobox" name="roleList"
+			data-options="label:'角色'" style="width: 100%;">
+		</select>
+	</div>
+	<div style="margin-bottom: 20px">
+		<select id="state" class="easyui-combobox" name="state"
+			data-options="label:'是否启用'" style="width: 100%;">
+			<option value="0">启用</option>
+			<option value="1">禁用</option>
+		</select>
 	</div>
 </form>
 <div style="text-align: center; padding: 5px 0">
@@ -22,4 +34,28 @@
 	function saveUser() {
 		save('#ff', '/userInfo/userUpdate');
 	}
+
+	var roleIds = '${roles}';
+	$('#roleList').combobox({
+		url : 'getRoles',
+		valueField : 'id',
+		textField : 'roleName',
+		multiple : true,
+		panelHeight : 'auto',
+		onLoadSuccess : function() {
+			if ("" != roleIds) {
+				var x = roleIds.split(",");
+				$('#roleList').combobox('setValues', x);
+			}
+		}
+	});
+	var status = '${user.state}';
+	$("#state").combobox({
+		panelHeight : 'auto',
+		onLoadSuccess : function() {
+			if ("" != status) {
+				$('#state').combobox('setValues', status);
+			}
+		}
+	});
 </script>

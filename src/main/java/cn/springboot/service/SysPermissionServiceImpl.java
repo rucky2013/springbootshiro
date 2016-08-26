@@ -27,6 +27,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import cn.springboot.bean.SysPermission;
+import cn.springboot.bean.SysRole;
 import cn.springboot.bean.UserInfo;
 import cn.springboot.dao.SysPermissionDao;
 import cn.springboot.dao.UserInfoDao;
@@ -134,5 +135,20 @@ public class SysPermissionServiceImpl implements SysPermissionService {
 	@Override
 	public SysPermission findById(long id) {
 		return sysPermissionDao.findOne(id);
+	}
+	
+	@Override
+	public List<Map<String, Object>> findParent() {
+		List<Map<String, Object>> mapList = new ArrayList<Map<String, Object>>();
+		List<SysPermission> parentList = sysPermissionDao.findAll();
+		if (null != parentList && parentList.size() > 0) {
+			for (SysPermission parent : parentList) {
+				Map<String, Object> map = new HashMap<String, Object>();
+				map.put("id", parent.getId());
+				map.put("name", parent.getName());
+				mapList.add(map);
+			}
+		}
+		return mapList;
 	}
 }

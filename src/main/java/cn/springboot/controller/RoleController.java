@@ -50,6 +50,15 @@ public class RoleController {
 		return "role/list";
 	}
 	
+	@RequestMapping("/listRole")
+	@ResponseBody
+	public String listDetail(HttpServletRequest req, Integer page, Integer rows) {
+
+		String queryString = req.getParameter("queryString");
+		System.out.println("查询条件：" + queryString);
+		return StringUtil.toJson(sysRoleService.getRoleByPageable(queryString, page, rows));
+	}
+	
 	/**
 	 * @Title: allTrees 
 	 * @Description: 所有菜单和功能
@@ -73,6 +82,7 @@ public class RoleController {
 	@RequestMapping("save")
 	@ResponseBody
 	public String save(HttpServletRequest req, SysRole role) {
+		System.out.println("角色信息："+role.toString());
 		try {
 			sysRoleService.addRole(role);
 			map.put("success", true);

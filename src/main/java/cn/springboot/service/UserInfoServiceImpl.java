@@ -61,8 +61,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 	}
 
 	/**
-	 * 分页查询
-	 * queryString查询条件
+	 * 分页查询 queryString查询条件
 	 */
 	@Override
 	public Map<String, Object> getUserByPageable(String queryString, Integer page, Integer rows) {
@@ -70,12 +69,13 @@ public class UserInfoServiceImpl implements UserInfoService {
 		Sort sort = new Sort(Sort.Direction.DESC, "username").and(new Sort(Sort.Direction.ASC, "uid"));
 		// 当前页，每页条数
 		Pageable pageable = new PageRequest(page - 1, rows, sort);
-		//查询条件
+		// 查询条件
 		Specification<UserInfo> spec = new Specification<UserInfo>() {
 			public Predicate toPredicate(Root<UserInfo> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
 				List<Predicate> list = new ArrayList<Predicate>();
 				if (queryString != null && queryString.trim().length() > 0) {
-					list.add(cb.like(root.get("username").as(String.class), "%" + queryString + "%"));
+					list.add(cb.like(root.get("username").as(String.class),
+							"%" + queryString + "%"));
 				}
 				Predicate[] p = new Predicate[list.size()];
 				return cb.and(list.toArray(p));
@@ -93,14 +93,13 @@ public class UserInfoServiceImpl implements UserInfoService {
 				us.setUid(u.getUid());
 				us.setUsername(u.getUsername());
 				us.setName(u.getName());
-/*				List<SysRole> roleList=u.getRoleList();
-				System.out.println("UUUUUUUU:"+roleList.toString()+"MMMMM");
-				List roleId=new ArrayList();
+				List<SysRole> roleList = u.getRoleList();
+				System.out.println("UUUUUUUU:" + roleList.toString() + "MMMMM");
+				List roleId = new ArrayList();
 				for (SysRole role : roleList) {
-					role.getPermission();
-					System.out.println(role.getPermission().toString());
-					roleId.add(role.getId());
-				}*/
+					roleId.add(role.getDescription());
+				}
+				us.setRoleList(roleId);
 				list.add(us);
 			}
 		}
@@ -114,14 +113,14 @@ public class UserInfoServiceImpl implements UserInfoService {
 	 */
 	@Override
 	public void deleteUser(String[] ids) throws Exception {
-			if (!StringUtil.isEmpty(ids) && ids.length > 0) {
-				for (String id : ids) {
-					if (!StringUtil.isEmpty(id)) {
-						UserInfo userDel=userInfoDao.findOne(Long.parseLong(id));
-						userInfoDao.delete(userDel);
-					}
+		if (!StringUtil.isEmpty(ids) && ids.length > 0) {
+			for (String id : ids) {
+				if (!StringUtil.isEmpty(id)) {
+					UserInfo userDel = userInfoDao.findOne(Long.parseLong(id));
+					userInfoDao.delete(userDel);
 				}
 			}
+		}
 	}
 
 	/**
@@ -129,12 +128,14 @@ public class UserInfoServiceImpl implements UserInfoService {
 	 */
 	@Override
 	public UserInfo updateUser(UserInfo userInfo) {
-		UserInfo userUpdate=userInfoDao.findOne(userInfo.getUid());
-		if(userInfo.getUsername()!=null){
-			userUpdate.setUsername(userInfo.getUsername());
-			userUpdate.setName(userInfo.getName());
-		}
-		userInfoDao.save(userUpdate);
+		UserInfo userUpdate = userInfoDao.findOne(userInfo.getUid());
+		System.out.println("用户信息：" + userInfo);
+		/*
+		 * if(userInfo.getUsername()!=null){
+		 * userUpdate.setUsername(userInfo.getUsername());
+		 * userUpdate.setName(userInfo.getName()); }
+		 */
+		userInfoDao.save(userInfo);
 		return userUpdate;
 	}
 
@@ -142,6 +143,5 @@ public class UserInfoServiceImpl implements UserInfoService {
 	public UserInfo findByUid(long uid) {
 		return userInfoDao.findOne(uid);
 	}
-	
 
 }

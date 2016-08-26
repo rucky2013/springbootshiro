@@ -20,6 +20,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 /**
  * @ClassName: UserInfo
  * @Description: 用户信息
@@ -47,6 +50,7 @@ public class UserInfo implements Serializable {
 	private byte state;//用户状态 0:创建未认证 1:正常状态 2:用户被锁定
 	
 	@ManyToMany(fetch=FetchType.EAGER) //立即从数据库中进行加载数据
+	@Fetch(value=FetchMode.SUBSELECT)
 	@JoinTable(name="SysUserRole" ,joinColumns={@JoinColumn(name="uid")},inverseJoinColumns={@JoinColumn(name = "roleId") })
 	private List<SysRole> roleList; //一个用户多个角色
 

@@ -54,7 +54,7 @@
 				<tr>
 					<td>角色名称<span style="color: red;">*</span></td>
 					<td><input type="text" class="x-form-text" name="name"
-						id="name" value="${role.name}" /></td>
+						id="name" value="${role.role}" /></td>
 				</tr>
 				<tr>
 					<td>是否启用<span style="color: red;">*</span></td>
@@ -100,6 +100,6 @@
 </div>
 <script type="text/javascript">
 	function savePermission() {
-		save('#ff', '/sysper/save');
+		save('#ff', '/role/save');
 	}
 </script>

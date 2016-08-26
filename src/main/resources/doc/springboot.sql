@@ -10,26 +10,10 @@ Target Server Type    : MYSQL
 Target Server Version : 50713
 File Encoding         : 65001
 
-Date: 2016-08-24 19:29:47
+Date: 2016-08-26 11:27:20
 */
 
 SET FOREIGN_KEY_CHECKS=0;
-
--- ----------------------------
--- Table structure for demo
--- ----------------------------
-DROP TABLE IF EXISTS `demo`;
-CREATE TABLE `demo` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of demo
--- ----------------------------
-INSERT INTO `demo` VALUES ('1', 'Yang0.8669489866446928');
-INSERT INTO `demo` VALUES ('2', 'Yang0.34252992596701026');
 
 -- ----------------------------
 -- Table structure for demo_info
@@ -63,19 +47,24 @@ CREATE TABLE `sys_permission` (
   `url` varchar(255) DEFAULT NULL,
   `seq` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of sys_permission
 -- ----------------------------
 INSERT INTO `sys_permission` VALUES ('1', '', '系统设置', '0', '', 'system', 'menu', '', null);
-INSERT INTO `sys_permission` VALUES ('2', '', '添加', '7', '', 'userInfo:add', 'button', 'userInfo/userAdd', null);
-INSERT INTO `sys_permission` VALUES ('5', '', '删除', '7', null, 'userInfo:delOne', 'button', 'userInfo/userDelOne', null);
-INSERT INTO `sys_permission` VALUES ('6', '', '编辑', '7', null, 'userInfo:edit', 'button', 'userInfo/userEdit', null);
-INSERT INTO `sys_permission` VALUES ('7', '', '用户管理', '1', null, 'userInfo:view', 'menu', 'userInfo/userList', null);
-INSERT INTO `sys_permission` VALUES ('8', '', '权限管理', '1', null, 'perInfo:view', 'menu', 'sysPermission/perList', null);
-INSERT INTO `sys_permission` VALUES ('9', '', '商品管理', '0', null, 'proInfo', 'menu', '', null);
-INSERT INTO `sys_permission` VALUES ('10', '', '商品查询', '9', null, 'proInfo:list', 'menu', 'proInfo/list', null);
+INSERT INTO `sys_permission` VALUES ('2', '', '用户添加', '7', '', 'userInfo:add', 'button', 'userInfo/add', null);
+INSERT INTO `sys_permission` VALUES ('5', '', '用户删除', '7', null, 'userInfo:del', 'button', 'userInfo/del', null);
+INSERT INTO `sys_permission` VALUES ('6', '', '用户编辑', '7', null, 'userInfo:edit', 'button', 'userInfo/edit', null);
+INSERT INTO `sys_permission` VALUES ('7', '', '用户管理', '1', null, 'userInfo:list', 'menu', 'userInfo/list', null);
+INSERT INTO `sys_permission` VALUES ('8', '', '资源管理', '1', null, 'permission:list', 'menu', 'sysper/list', null);
+INSERT INTO `sys_permission` VALUES ('11', '', '资源增加', '8', null, 'permission:add', 'button', 'sysper/add', null);
+INSERT INTO `sys_permission` VALUES ('12', '', '资源编辑', '8', null, 'permission:edit', 'button', 'sysper/edit', null);
+INSERT INTO `sys_permission` VALUES ('13', '', '资源删除', '8', null, 'permission:del', 'button', 'sysper/del', null);
+INSERT INTO `sys_permission` VALUES ('16', '', '角色管理', '1', null, 'role:list', 'menu', 'role/list', null);
+INSERT INTO `sys_permission` VALUES ('17', '', '角色添加', '16', null, 'role:add', 'button', 'role/add', null);
+INSERT INTO `sys_permission` VALUES ('18', '', '角色编辑', '16', null, 'role:edit', 'button', 'role/edit', null);
+INSERT INTO `sys_permission` VALUES ('19', '', '角色删除', '16', null, 'role:del', 'button', 'role/del', null);
 
 -- ----------------------------
 -- Table structure for sys_role
@@ -87,13 +76,13 @@ CREATE TABLE `sys_role` (
   `description` varchar(255) DEFAULT NULL,
   `role` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of sys_role
 -- ----------------------------
 INSERT INTO `sys_role` VALUES ('1', '', '管理员', 'admin');
-INSERT INTO `sys_role` VALUES ('2', '', '用户', 'user');
+INSERT INTO `sys_role` VALUES ('8', '', '普通用户', 'user');
 
 -- ----------------------------
 -- Table structure for sys_role_permission
@@ -116,17 +105,22 @@ INSERT INTO `sys_role_permission` VALUES ('1', '2');
 INSERT INTO `sys_role_permission` VALUES ('1', '5');
 INSERT INTO `sys_role_permission` VALUES ('1', '6');
 INSERT INTO `sys_role_permission` VALUES ('1', '8');
-INSERT INTO `sys_role_permission` VALUES ('1', '9');
-INSERT INTO `sys_role_permission` VALUES ('1', '10');
 INSERT INTO `sys_role_permission` VALUES ('1', '7');
+INSERT INTO `sys_role_permission` VALUES ('1', '11');
+INSERT INTO `sys_role_permission` VALUES ('1', '12');
+INSERT INTO `sys_role_permission` VALUES ('1', '16');
+INSERT INTO `sys_role_permission` VALUES ('1', '13');
+INSERT INTO `sys_role_permission` VALUES ('1', '17');
+INSERT INTO `sys_role_permission` VALUES ('1', '18');
+INSERT INTO `sys_role_permission` VALUES ('1', '19');
 
 -- ----------------------------
 -- Table structure for sys_user_role
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_user_role`;
 CREATE TABLE `sys_user_role` (
-  `uid` bigint(20) NOT NULL,
   `role_id` bigint(20) NOT NULL,
+  `uid` bigint(20) NOT NULL,
   KEY `FKgkmyslkrfeyn9ukmolvek8b8f` (`uid`),
   KEY `FKhh52n8vd4ny9ff4x9fb8v65qx` (`role_id`),
   CONSTRAINT `FKgkmyslkrfeyn9ukmolvek8b8f` FOREIGN KEY (`uid`) REFERENCES `user_info` (`uid`),
@@ -137,6 +131,9 @@ CREATE TABLE `sys_user_role` (
 -- Records of sys_user_role
 -- ----------------------------
 INSERT INTO `sys_user_role` VALUES ('1', '1');
+INSERT INTO `sys_user_role` VALUES ('1', '2');
+INSERT INTO `sys_user_role` VALUES ('1', '5');
+INSERT INTO `sys_user_role` VALUES ('1', '6');
 
 -- ----------------------------
 -- Table structure for user_info
@@ -144,18 +141,20 @@ INSERT INTO `sys_user_role` VALUES ('1', '1');
 DROP TABLE IF EXISTS `user_info`;
 CREATE TABLE `user_info` (
   `uid` bigint(20) NOT NULL AUTO_INCREMENT,
-  `username` varchar(255) DEFAULT NULL,
-  `password` varchar(255) DEFAULT NULL,
   `name` varchar(255) DEFAULT NULL,
+  `password` varchar(255) DEFAULT NULL,
   `salt` varchar(255) DEFAULT NULL,
   `state` tinyint(4) NOT NULL,
+  `username` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`uid`),
   UNIQUE KEY `UK_f2ksd6h8hsjtd57ipfq9myr64` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=119 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user_info
 -- ----------------------------
-INSERT INTO `user_info` VALUES ('1', 'admin', 'd3c59d25033dbf980d29554025c23a75', '管理员', '8d78869f470951332959580424d4bf4f', '0');
-INSERT INTO `user_info` VALUES ('107', 'li', '456', '李四', null, '1');
+INSERT INTO `user_info` VALUES ('1', '管理员', 'd3c59d25033dbf980d29554025c23a75', '8d78869f470951332959580424d4bf4f', '0', 'admin');
+INSERT INTO `user_info` VALUES ('2', '123', '231', '131', '1', '131');
+INSERT INTO `user_info` VALUES ('5', '李四', 'f0ba154c35029b214a1328cb6ae83131', null, '0', 'lilili');
+INSERT INTO `user_info` VALUES ('6', '赵四', null, null, '1', 'zhaosi');
 SET FOREIGN_KEY_CHECKS=1;

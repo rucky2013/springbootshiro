@@ -9,46 +9,22 @@
 		} ] ];
 		var columns = [ [
 				{
-					field : "id",
-					title : "资源ID",
+					field : "description",
+					title : "角色名称",
 					width : 100,
 					align : 'center',
 					
 				},
 				{
-					field : "name",
-					title : "资源名称",
+					field : "role",
+					title : "角色标识",
 					width : 160,
-					align : 'center'
-				},
-				{
-					field : "parentId",
-					title : "上级资源ID",
-					width : 120,
-					align : 'center'
-				},
-				{
-					field : "permission",
-					title : "权限",
-					width : 200,
-					align : 'center'
-				},
-				{
-					field : "resourceType",
-					title : "资源类型",
-					width : 160,
-					align : 'center'
-				},
-				{
-					field : "url",
-					title : "URL",
-					width : 200,
 					align : 'center'
 				},
 				{
 					field : "available",
 					title : "是否可用",
-					width : 160,
+					width : 120,
 					align : 'center'
 				},
 				{
@@ -74,7 +50,7 @@
 						return str;
 					}
 				} ] ]
-		datagrid("#tt", "", "/sysper/listPermission", "#tb", "id", columns,
+		datagrid("#tt", "", "/role/listRole", "#tb", "id", columns,
 				fcolumn);
 	});
 </script>
@@ -87,7 +63,7 @@
 			onclick="addPage('/role/add','添加角色')">添加</a> <a
 			href="javascript:void(0)" class="easyui-linkbutton"
 			data-options="iconCls:'icon-remove',plain:true"
-			onclick="deletebyIds('#tt','/sysper/del')">删除</a> <span
+			onclick="deletebyIds('#tt','/role/del')">删除</a> <span
 			style="float: right;"><input class="easyui-searchbox"
 			data-options="prompt:'请输入资源名称或描述',searcher:doSearch"
 			style="width: 300px; height: 24px;" /></span> <span style="clear: both;"></span>

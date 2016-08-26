@@ -33,5 +33,7 @@ public interface SysPermissionService {
 	public Map<String, Object> getSysPermissionByPageable(String queryString,Integer page,Integer rows);
 	//删除
 	public void deleteSysPermission(String[] ids) throws Exception;
+	//父节点菜单
+	public List<Map<String, Object>> findParent() ;
 	
 }

@@ -8,6 +8,7 @@
  */
 package cn.springboot.service;
 
+import java.util.List;
 import java.util.Map;
 
 import cn.springboot.bean.SysPermission;
@@ -32,5 +33,7 @@ public interface SysRoleService {
 	public Map<String, Object> getRoleByPageable(String queryString,Integer page,Integer rows);
 	//删除
 	public void deleteRole(String[] ids) throws Exception;
+	
+	public List<Map<String, Object>> getAllRoles();
 	
 }

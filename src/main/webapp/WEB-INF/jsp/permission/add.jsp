@@ -7,8 +7,8 @@
 			data-options="label:'资源名称:'" value="${permission.name}">
 	</div>
 	<div style="margin-bottom: 20px">
-		<input class="easyui-textbox" name="parentId" style="width: 100%"
-			data-options="label:'上级资源ID:'" value="${permission.parentId}">
+		<input id="parentId" class="easyui-combobox" name="parentId" style="width: 100%"
+			data-options="label:'上级节点:'">
 	</div>
 	<div style="margin-bottom: 20px">
 		<input class="easyui-textbox" name="permission" style="width: 100%"
@@ -44,4 +44,12 @@
 	function savePermission() {
 		save('#ff', '/sysper/save');
 	}
+
+	$('#parentId').combobox({
+		url : 'getParent',
+		valueField : 'id',
+		textField : 'name',
+		multiple : false,
+		panelHeight : 'auto',
+	});
 </script>

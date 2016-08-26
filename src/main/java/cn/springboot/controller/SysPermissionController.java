@@ -130,4 +130,10 @@ public class SysPermissionController {
 		}
 		return StringUtil.toJson(map);
 	}
+	
+	@RequestMapping(value = "/getParent")
+	@ResponseBody
+	public String getParent(HttpServletRequest req) throws Exception {
+		return StringUtil.toJson(sysPermissionService.findParent());
+	}
 }

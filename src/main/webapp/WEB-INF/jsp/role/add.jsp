@@ -43,18 +43,14 @@
 		}
 	}
 </script>
-<form id="roleform" >
+<form id="ff" >
 	<div style="width: 100%; height: 80%;">
 		<div style="width: 60%; height: 80%; float: left; overflow: auto;">
 			<table>
 				<tr>
-					<td><input type="hidden" class="x-form-text" name="id"
-						value="${role.id}" /></td>
-				</tr>
-				<tr>
 					<td>角色名称<span style="color: red;">*</span></td>
-					<td><input type="text" class="x-form-text" name="name"
-						id="name" value="${role.name}" /></td>
+					<td><input type="text" class="x-form-text" name="role"
+						id="role" value="${role.role}" /></td>
 				</tr>
 				<tr>
 					<td>是否启用<span style="color: red;">*</span></td>
@@ -66,7 +62,7 @@
 				</tr>
 				<tr>
 					<td>角色描述</td>
-					<td><input type="text" class="x-form-text" name="name"
+					<td><input type="text" class="x-form-text" name="description"
 						id="description" value="${role.description}" /></td>
 				</tr>
 			</table>
@@ -96,10 +92,10 @@
 			onclick="checkInverse();">反选</span> <span
 			style="margin-right: 5px; color: #000000; font-weight: bold; cursor: pointer;"
 			onclick="uncheckAll();">取消</span>
-	</div>
+	</div>3
 </div>
 <script type="text/javascript">
 	function savePermission() {
-		save('#ff', '/sysper/save');
+		save('#ff', '/role/save');
 	}
 </script>
