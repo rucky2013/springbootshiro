@@ -27,6 +27,13 @@
 					align : 'center'
 				},
 				{
+					field : "state",
+					title : "是否启用",
+					width : 160,
+					align : 'center',
+					formatter:FState
+				},
+				{
 					field : 'action',
 					title : '操作',
 					width : 130,
@@ -91,6 +98,15 @@
 				top.layer.restore(returnValue);
 				return returnValue;
 			}
+			
+			function FState(value, row, index) {
+			    if (row.state) {
+			        return "否";
+			    } else {
+			        return "是";
+			    }
+			}
+			
 		</script>
 	</div>
 </div>

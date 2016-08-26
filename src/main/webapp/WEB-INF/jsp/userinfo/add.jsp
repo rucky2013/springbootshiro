@@ -42,4 +42,5 @@
 		multiple : true,
 		panelHeight : 'auto'
 	});
+	$("#state").val('${user.state}');
 </script>

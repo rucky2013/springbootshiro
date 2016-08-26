@@ -93,8 +93,8 @@ public class UserInfoServiceImpl implements UserInfoService {
 				us.setUid(u.getUid());
 				us.setUsername(u.getUsername());
 				us.setName(u.getName());
+				us.setState(u.getState());
 				List<SysRole> roleList = u.getRoleList();
-				System.out.println("UUUUUUUU:" + roleList.toString() + "MMMMM");
 				List roleId = new ArrayList();
 				for (SysRole role : roleList) {
 					roleId.add(role.getDescription());

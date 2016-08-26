@@ -140,7 +140,7 @@ public class SysPermissionServiceImpl implements SysPermissionService {
 	@Override
 	public List<Map<String, Object>> findParent() {
 		List<Map<String, Object>> mapList = new ArrayList<Map<String, Object>>();
-		List<SysPermission> parentList = sysPermissionDao.findAll();
+		List<SysPermission> parentList = sysPermissionDao.findByParentId((long) 0);
 		if (null != parentList && parentList.size() > 0) {
 			for (SysPermission parent : parentList) {
 				Map<String, Object> map = new HashMap<String, Object>();

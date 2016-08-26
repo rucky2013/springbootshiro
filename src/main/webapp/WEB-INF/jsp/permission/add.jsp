@@ -15,7 +15,7 @@
 			data-options="label:'权限标志:'" value="${permission.permission}">
 	</div>
 	<div style="margin-bottom: 20px">
-		<select class="easyui-combobox" name="resourceType"
+		<select id="resourceType" class="easyui-combobox" name="resourceType"
 			data-options="label:'资源类型:'" style="width: 100%;">
 			<option value="menu">菜单</option>
 			<option value="button">按钮</option>
@@ -26,7 +26,7 @@
 			data-options="label:'URL'" value="${permission.url}">
 	</div>
 	<div style="margin-bottom: 20px">
-		<select class="easyui-combobox" name="available"
+		<select id="available" class="easyui-combobox" name="available"
 			data-options="label:'是否可用:'" style="width: 100%;">
 			<option value="1">是</option>
 			<option value="0">否</option>
@@ -52,4 +52,6 @@
 		multiple : false,
 		panelHeight : 'auto',
 	});
+	$("#resourceType").val('');
+	$("#available").val('');
 </script>

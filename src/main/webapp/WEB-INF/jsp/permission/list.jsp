@@ -37,7 +37,8 @@
 					field : "resourceType",
 					title : "资源类型",
 					width : 160,
-					align : 'center'
+					align : 'center',
+					formatter : Fresource
 				},
 				{
 					field : "url",
@@ -49,7 +50,8 @@
 					field : "available",
 					title : "是否可用",
 					width : 160,
-					align : 'center'
+					align : 'center',
+					formatter : Favailable
 				},
 				{
 					field : 'action',
@@ -85,7 +87,7 @@
 		<shiro:hasPermission name="permission:add">
 			<a href="javascript:void(0)" class="easyui-linkbutton"
 				data-options="iconCls:'icon-add',plain:true"
-				onclick="addPage('/sysper/add','添加用户')">添加</a>
+				onclick="addPage('/sysper/add','添加资源')">添加</a>
 		</shiro:hasPermission>
 		<shiro:hasPermission name="permission:del">
 			<a href="javascript:void(0)" class="easyui-linkbutton"
@@ -100,13 +102,13 @@
 				$("#tt").datagrid("load", {
 					queryString : value
 				});
-			}
+			};
 			function addPage(url, title) {
 				returnValue = top.layer.open({
 					type : 2,
 					title : title,
 					maxmin : false,
-					area : [ '20%', '70%' ],
+					area : [ '30%', '70%' ],
 					content : url,
 					scrollbar : true,
 					end : function() {
@@ -115,7 +117,7 @@
 				});
 				top.layer.restore(returnValue);
 				return returnValue;
-			}
+			};
 
 			$('#tt').datagrid({
 				rowStyler : function(index, row) {
@@ -123,7 +125,21 @@
 						return 'background-color:#87CEEB'
 					}
 				}
-			})
+			});
+			function Favailable(value, row, index) {
+				if (row.available) {
+					return "是";
+				} else {
+					return "否";
+				}
+			};
+			function Fresource(value, row, index) {
+				if (row.resourceType=="menu") {
+					return "菜单";
+				} else {
+					return "按钮";
+				}
+			};
 		</script>
 	</div>
 </div>

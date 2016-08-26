@@ -116,7 +116,6 @@ public class MenuServiceImpl implements MenuService {
 
 	@Override
 	public List<SysPermission> findModule(long parentId) {
-		System.out.println("父节点：" + parentId);
 		List<SysPermission> modList = sysPermissionDao.findByParentId(parentId);
 		return modList;
 	}

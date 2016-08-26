@@ -8,15 +8,15 @@
 			data-options="label:'资源名称:'" value="${permission.name}">
 	</div>
 	<div style="margin-bottom: 20px">
-		<input class="easyui-textbox" name="parentId" style="width: 100%"
-			data-options="label:'上级资源ID:'" value="${permission.parentId}">
+		<input id="parentId" class="easyui-combobox" name="parentId"
+			style="width: 100%" data-options="label:'上级资源ID:'">
 	</div>
 	<div style="margin-bottom: 20px">
 		<input class="easyui-textbox" name="permission" style="width: 100%"
 			data-options="label:'权限标志:'" value="${permission.permission}">
 	</div>
 	<div style="margin-bottom: 20px">
-		<select class="easyui-combobox" name="resourceType"
+		<select id="resourceType" class="easyui-combobox" name="resourceType"
 			data-options="label:'资源类型:'" style="width: 100%;">
 			<option value="menu">菜单</option>
 			<option value="button">按钮</option>
@@ -27,10 +27,10 @@
 			data-options="label:'URL'" value="${permission.url}">
 	</div>
 	<div style="margin-bottom: 20px">
-		<select class="easyui-combobox" name="available"
+		<select id="available" class="easyui-combobox" name="available"
 			data-options="label:'是否可用:'" style="width: 100%;">
-			<option value="1">是</option>
-			<option value="0">否</option>
+			<option value="true">是</option>
+			<option value="false">否</option>
 		</select>
 	</div>
 </form>
@@ -44,4 +44,20 @@
 	function savePermission() {
 		save('#ff', '/sysper/update');
 	}
+	var parentId = '${permission.parentId}';
+	$('#parentId').combobox({
+		url : 'getParent',
+		valueField : 'id',
+		textField : 'name',
+		multiple : false,
+		panelHeight : 'auto',
+		onLoadSuccess : function() {
+			if ("" != parentId) {
+				$('#parentId').combobox('setValue', parentId);
+			}
+		}
+	});
+	$("#resourceType").val('${permission.resourceType}');
+	
+	$("#available").val('${permission.available}');
 </script>

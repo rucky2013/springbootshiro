@@ -49,13 +49,5 @@
 			}
 		}
 	});
-	var status = '${user.state}';
-	$("#state").combobox({
-		panelHeight : 'auto',
-		onLoadSuccess : function() {
-			if ("" != status) {
-				$('#state').combobox('setValues', status);
-			}
-		}
-	});
+	$("#state").val('${user.state}');
 </script>

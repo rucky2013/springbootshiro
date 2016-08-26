@@ -25,7 +25,8 @@
 					field : "available",
 					title : "是否可用",
 					width : 120,
-					align : 'center'
+					align : 'center',
+					formatter:FAvailable
 				},
 				{
 					field : 'action',
@@ -88,7 +89,13 @@
 				top.layer.restore(returnValue);
 				return returnValue;
 			}
-			
+			function FAvailable(value, row, index) {
+			    if (row.available) {
+			        return "是";
+			    } else {
+			        return "否";
+			    }
+			}
 		</script>
 	</div>
 </div>
